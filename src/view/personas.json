@@ -1,0 +1,120 @@
+[
+    {
+        "id": 1,
+        "nombre": "Jesus",
+        "apellido": "Bautista Moreno",
+        "edad": 22,
+        "correo": "bautistachuchin030@gmail.com",
+        "telefono": "7713217322",
+        "fechaN": "2002-12-25T22:00:00Z"
+    },
+    {
+        "id": 2,
+        "nombre": "Alejandro",
+        "apellido": "Hernandez Hernandez",
+        "edad": 22,
+        "correo": "alexhernandez29@gmail.com",
+        "telefono": "7717457852",
+        "fechaN": "2002-07-15T17:30:00Z"
+    },
+    {
+        "id": 3,
+        "nombre": "Maria",
+        "apellido": "Lopez Garcia",
+        "edad": 30,
+        "correo": "maria.lopez@gmail.com",
+        "telefono": "5557891234",
+        "fechaN": "1994-03-12T10:45:00Z"
+    },
+    {
+        "id": 4,
+        "nombre": "Carlos",
+        "apellido": "Martinez Perez",
+        "edad": 28,
+        "correo": "carlos.martinez@gmail.com",
+        "telefono": "5512345678",
+        "fechaN": "1996-06-22T14:20:00Z"
+    },
+    {
+        "id": 5,
+        "nombre": "Fernanda",
+        "apellido": "Gomez Sanchez",
+        "edad": 25,
+        "correo": "fernanda.gomez@gmail.com",
+        "telefono": "5567890123",
+        "fechaN": "1999-01-30T09:15:00Z"
+    },
+    {
+        "id": 6,
+        "nombre": "Luis",
+        "apellido": "Ramirez Torres",
+        "edad": 27,
+        "correo": "luis.ramirez@gmail.com",
+        "telefono": "5578901234",
+        "fechaN": "1997-05-14T19:00:00Z"
+    },
+    {
+        "id": 7,
+        "nombre": "Gabriela",
+        "apellido": "Hernandez Diaz",
+        "edad": 24,
+        "correo": "gabriela.hernandez@gmail.com",
+        "telefono": "5589012345",
+        "fechaN": "2000-08-05T11:30:00Z"
+    },
+    {
+        "id": 8,
+        "nombre": "Juan",
+        "apellido": "Gutierrez Ruiz",
+        "edad": 35,
+        "correo": "juan.gutierrez@gmail.com",
+        "telefono": "5590123456",
+        "fechaN": "1989-11-18T16:45:00Z"
+    },
+    {
+        "id": 9,
+        "nombre": "Andrea",
+        "apellido": "Castro Mendoza",
+        "edad": 29,
+        "correo": "andrea.castro@gmail.com",
+        "telefono": "5511234567",
+        "fechaN": "1995-02-27T08:10:00Z"
+    },
+    {
+        "id": 10,
+        "nombre": "Pedro",
+        "apellido": "Vargas Lopez",
+        "edad": 31,
+        "correo": "pedro.vargas@gmail.com",
+        "telefono": "5522345678",
+        "fechaN": "1993-09-12T20:25:00Z"
+    },
+    {
+        "id": 11,
+        "nombre": "Juan",
+        "apellido": "Ordaz Mogica",
+        "edad": 35,
+        "correo": "Ordaz12Juan@gmail.com",
+        "telefono": "7745857412",
+        "fechaN": "1989-12-05T20:24:00z"
+    },
+    {
+        "id": 12,
+        "nombre" : "Larissa",
+        "apellido": "Ordaz Vera",
+        "edad": 22,
+        "correo": "LariVeraO@gmail.com",
+        "telefono": "7714589645",
+        "fechaN": "2002-07-05T17:30:00Z" 
+    },
+    {
+        "id": 13,
+        "nombre": "Victor",
+        "apellido": "San Juan Moreno",
+        "edad": 36,
+        "correo": "victorSanJuan@gmail.com",
+        "telefono": "5548759641",
+        "fechaN": "1989-11-18T16:45:00Z"
+    }
+
+]
