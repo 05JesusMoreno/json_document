@@ -13,15 +13,32 @@ namespace view {
         private ventana = new view.Ventana();
         private static contadorId: number;
         private tableBody: d3.Selection<d3.BaseType, unknown, HTMLElement, any>;
+        private apiPersonas = "https://raw.githubusercontent.com/05JesusMoreno/json_document/refs/heads/main/src/view/personas.json";
 
+        private async VerPersonasApi() {
+            try {
+                let respuestaApi = await fetch(this.apiPersonas);
+                let data: Persona[] = await respuestaApi.json();
+                data.forEach(persona => {
+                    this.PersonasMap.set(persona.id, persona);
+                });
+                this.actualizarTabla();
+            } catch (error) {
+                console.error("Error al obtener datos:", error);
+            }
+        }
+        
         constructor(container: d3.Selection<d3.BaseType, unknown, HTMLElement, any>) {
             this.PersonasMap.set(1, <Persona>{ id: 1, nombre: "Jesus", apellido: "Bautista Moreno", edad: 22, correo: "jesusbautista25@gmail.com", telefono: 7713217322, fechaN: new Date()});
             this.PersonasMap.set(2, <Persona>{ id: 2, nombre: "Amanda", apellido: "Lopez Hernandez", edad: 28, correo: "AmanLH25@gmail.com", telefono: 7713457124, fechaN: new Date() });
             this.mostrarLista(container);
         }
 
-        public mostrarLista(container: d3.Selection<d3.BaseType, unknown, HTMLElement, any>) {
+        public async mostrarLista(container: d3.Selection<d3.BaseType, unknown, HTMLElement, any>) {
             container.append("h2").text("Lista de Personas Registradas");
+            
+            await this.VerPersonasApi();
+            this.actualizarTabla();
 
             const buttonContainer = container.append("div")
                 .style("width", "80%")
