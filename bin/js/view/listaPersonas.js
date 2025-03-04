@@ -13,8 +13,7 @@ var view;
         VerPersonasApi() {
             return __awaiter(this, void 0, void 0, function* () {
                 try {
-                    let respuestaApi = yield fetch(this.apiPersonas);
-                    let data = yield respuestaApi.json();
+                    let data = yield d3.json("https://raw.githubusercontent.com/05JesusMoreno/json_document/refs/heads/main/src/view/personas.json");
                     data.forEach(persona => {
                         this.PersonasMap.set(persona.id, persona);
                     });
@@ -28,9 +27,8 @@ var view;
         constructor(container) {
             this.PersonasMap = new Map();
             this.ventana = new view.Ventana();
-            this.apiPersonas = "https://raw.githubusercontent.com/05JesusMoreno/json_document/refs/heads/main/src/view/personas.json";
-            this.PersonasMap.set(1, { id: 1, nombre: "Jesus", apellido: "Bautista Moreno", edad: 22, correo: "jesusbautista25@gmail.com", telefono: 7713217322, fechaN: new Date() });
-            this.PersonasMap.set(2, { id: 2, nombre: "Amanda", apellido: "Lopez Hernandez", edad: 28, correo: "AmanLH25@gmail.com", telefono: 7713457124, fechaN: new Date() });
+            //this.PersonasMap.set(1, <Persona>{ id: 1, nombre: "Jesus", apellido: "Bautista Moreno", edad: 22, correo: "jesusbautista25@gmail.com", telefono: 7713217322, fechaN: new Date()});
+            //this.PersonasMap.set(2, <Persona>{ id: 2, nombre: "Amanda", apellido: "Lopez Hernandez", edad: 28, correo: "AmanLH25@gmail.com", telefono: 7713457124, fechaN: new Date() });
             this.mostrarLista(container);
         }
         mostrarLista(container) {
@@ -38,7 +36,7 @@ var view;
                 container.append("h2").text("Lista de Personas Registradas");
                 yield this.VerPersonasApi();
                 this.actualizarTabla();
-                const buttonContainer = container.append("div")
+                var buttonContainer = container.append("div")
                     .style("width", "80%")
                     .style("display", "flex")
                     .style("justify-content", "flex-end")
@@ -72,7 +70,6 @@ var view;
                     .style("font-size", "16px")
                     .on("click", function () {
                     var texto = inputBusqueda.property("value");
-                    console.log("Buscando:", texto);
                 });
                 buttonContainer.append("button")
                     .text("Agregar Persona")
@@ -127,7 +124,7 @@ var view;
                 filas.append("td").text(d => d.edad.toString());
                 filas.append("td").text(d => d.correo);
                 filas.append("td").text(d => d.telefono);
-                filas.append("td").text(d => d.fechaN.toLocaleString());
+                filas.append("td").text(d => d.fechaN ? new Date(d.fechaN).toLocaleString().split("T")[0] : "");
                 filas.append("td").append("button")
                     .text("Editar")
                     .style("background-color", "#3A0AD5")
@@ -169,7 +166,7 @@ var view;
             filas.append("td").text(d => d.edad.toString());
             filas.append("td").text(d => d.correo);
             filas.append("td").text(d => d.telefono.toString());
-            filas.append("td").text(d => d.fechaN.toLocaleString());
+            filas.append("td").text(d => d.fechaN ? new Date(d.fechaN).toLocaleString().split("T")[0] : "");
             filas.append("td").append("button")
                 .text("Editar")
                 .style("background-color", "#3A0AD5")
@@ -186,8 +183,14 @@ var view;
                 .on("click", (event, d) => {
                 this.eliminar(d.id);
             });
+            d3.selectAll("th")
+                .style("border", "1px solid black")
+                .style("text-align", "center")
+                .style("font-size", "22px");
             d3.selectAll("td")
-                .style("border", "1px solid black");
+                .style("border", "1px solid black")
+                .style("text-align", "center")
+                .style("font-size", "22px");
         }
         formulario(container_form) {
             container_form.selectAll("*").remove();
@@ -210,8 +213,14 @@ var view;
             container_form.append("label").text("Fecha de nacimiento");
             var inputFechaN = container_form.append("input")
                 .attr("type", "date").attr("id", "fecha");
-            container_form.append("button")
+            var buttonContainer = container_form.append("div")
+                .style("display", "flex")
+                .style("justify-content", "center")
+                .style("gap", "10px")
+                .style("margin-top", "10px");
+            buttonContainer.append("button")
                 .text("Registrar")
+                .style("display", "flex")
                 .style("background-color", "blue")
                 .style("color", "white")
                 .style("border", "none")
@@ -243,7 +252,7 @@ var view;
                     alert("Todos los campos son obligatorios y la edad debe ser válida.");
                 }
             });
-            container_form.append("button")
+            buttonContainer.append("button")
                 .text("Cancelar")
                 .style("background-color", "red")
                 .style("color", "white")
@@ -264,7 +273,7 @@ var view;
                 .style("padding", "8px");
         }
         ActualizarPersona(id) {
-            const persona = this.PersonasMap.get(id);
+            let persona = this.PersonasMap.get(id);
             if (!persona) {
                 alert("Persona no encontrada");
                 return;
@@ -278,7 +287,7 @@ var view;
             d3.select("#edad").property("value", persona.edad.toString());
             d3.select("#correo").property("value", persona.correo);
             d3.select("#telefono").property("value", persona.telefono);
-            d3.select("#fecha").property("value", persona.fechaN.toISOString().split("T")[0]);
+            d3.select("#fecha").property("value", persona.fechaN);
             container_reg.append("label").text("Nombre");
             var inputNombre = container_reg.append("input")
                 .attr("type", "text").attr("id", "nombre").property("value", persona.nombre);
@@ -296,7 +305,7 @@ var view;
                 .attr("type", "number").attr("id", "telefono").property("value", persona.telefono);
             container_reg.append("label").text("Fecha de nacimiento");
             var inputFechaN = container_reg.append("input")
-                .attr("type", "date").attr("id", "fecha").property("value", persona.fechaN.toISOString().split("T")[0]);
+                .attr("type", "date").attr("id", "fecha").property("value", persona.fechaN ? new Date(persona.fechaN).toISOString().split("T")[0] : "");
             d3.selectAll("input")
                 .style("width", "60%")
                 .style("font-size", "20px")
@@ -304,7 +313,12 @@ var view;
             d3.selectAll("label")
                 .style("font-size", "18px")
                 .style("padding", "8px");
-            container_reg.append("button")
+            var buttonContainer = container_reg.append("div")
+                .style("display", "flex")
+                .style("justify-content", "center")
+                .style("gap", "10px")
+                .style("margin-top", "10px");
+            buttonContainer.append("button")
                 .text("Actualizar")
                 .style("background-color", "blue")
                 .style("color", "white")
@@ -314,17 +328,17 @@ var view;
                 .style("font-size", "20px")
                 .style("padding", "8px")
                 .on("click", () => {
-                const nuevoNombre = d3.select("#nombre").property("value");
-                const nuevoApellido = d3.select("#apellidos").property("value");
-                const nuevaEdad = parseInt(d3.select("#edad").property("value"));
-                const nuevoCorreo = d3.select("#correo").property("value");
-                const nuevoTelefono = d3.select("#telefono").property("value");
-                const nuevaFechaN = new Date(d3.select("#fecha").property("value"));
+                var nuevoNombre = d3.select("#nombre").property("value");
+                var nuevoApellido = d3.select("#apellidos").property("value");
+                var nuevaEdad = parseInt(d3.select("#edad").property("value"));
+                var nuevoCorreo = d3.select("#correo").property("value");
+                var nuevoTelefono = d3.select("#telefono").property("value");
+                var nuevaFechaN = new Date(d3.select("#fecha").property("value"));
                 if (!nuevoNombre || !nuevoApellido || isNaN(nuevaEdad) || !nuevoCorreo || !nuevoTelefono || isNaN(nuevaFechaN.getTime())) {
                     alert("Todos los campos son obligatorios y deben ser válidos.");
                     return;
                 }
-                const confirmar = window.confirm("¿Estás seguro de que deseas actualizar los datos de esta persona?");
+                var confirmar = window.confirm("¿Estás seguro de que deseas actualizar los datos de esta persona?");
                 if (!confirmar) {
                     this.ventana.ocultar();
                     alert("cancelaste actualizar los datos");
@@ -335,7 +349,7 @@ var view;
                 this.actualizarTabla();
                 this.ventana.ocultar();
             });
-            container_reg.append("button")
+            buttonContainer.append("button")
                 .text("Cancelar")
                 .style("background-color", "red")
                 .style("color", "white")

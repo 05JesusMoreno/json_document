@@ -12,7 +12,7 @@ namespace view {
                 .style("width", "100%");
         
             container_inicio.append("p")
-                .text("Bienvenidos a Carpinteria el Osito")
+                .text("Bienvenidos a Carpinteria DMM")
                 .style("font-size", "30px")
                 .style("text-align", "center");
         
@@ -21,17 +21,12 @@ namespace view {
                 .style("width", "90%") 
                 .style("background", "#fff")
                 .style("display", "grid")
-                .style("grid-template-columns", "repeat(3, 1fr)") 
+                .style("grid-template-columns", "repeat(1, 1fr)") 
                 .style("gap", "15px")
                 .style("padding", "10px")
                 .style("box-shadow", "0px 0px 10px rgba(0,0,0,0.1)");
         
             const imagenes = [
-                "./images/mueblePared.webp",
-                "./images/mueblePared.webp",
-                "./images/mueblePared.webp",
-                "./images/mueblePared.webp",
-                "./images/mueblePared.webp",
                 "./images/mueblePared.webp"
             ];
             imagenes.forEach(src => {

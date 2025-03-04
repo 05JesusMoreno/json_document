@@ -1,7 +1,6 @@
 namespace Module {
     export class Header {
         constructor(container_header: d3.Selection<d3.BaseType, unknown, HTMLElement, any>) {
-           // new view.Registro(d3.select("#container_body")); 
             this.header(container_header);
         }
         private header(container_header: d3.Selection<d3.BaseType, unknown, HTMLElement, any>) {
@@ -23,10 +22,9 @@ namespace Module {
             container_header.select("div").append("button")
                 .text("Ver Personas")
                 .on("click", () => {
-                    d3.select("#container_body").html("");
-                    new view.VerPersonas(d3.select("#container_body"));
+                    var vista = d3.select("#container_body").html("");
+                    new view.VerPersonas(vista);
                 });
-
             d3.selectAll("button")
                 .style("font-size", "24px")
                 .style("border", "none")

@@ -1,6 +1,7 @@
 namespace App {
-    export function Iniciar() {
-        d3.select("body").style("margin", "0")
+    export class app{
+        constructor(){
+            d3.select("body").style("margin", "0")
             .style("padding", "0");
         // Contenedor del Header
         var container_header = d3.select("body")
@@ -16,8 +17,7 @@ namespace App {
             .style("height", "auto")
             .style("padding", "2%");
         new view.Inicio(container_body);
+        }
     }
 }
-document.addEventListener("DOMContentLoaded", () => {
-    App.Iniciar();
-});
+new App.app()

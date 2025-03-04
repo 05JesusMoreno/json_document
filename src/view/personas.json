@@ -6,7 +6,7 @@
         "edad": 22,
         "correo": "bautistachuchin030@gmail.com",
         "telefono": "7713217322",
-        "fechaN": "25/12/2002, 10:25:00 p.m."
+        "fechaN": "2002-12-25T20:25:00Z"
     },
     {
         "id": 2,
@@ -15,7 +15,7 @@
         "edad": 22,
         "correo": "alexhernandez29@gmail.com",
         "telefono": "7717457852",
-        "fechaN": "2002-07-15T17:30:00Z"
+        "fechaN": "2002-06-14T04:36:00Z"
     },
     {
         "id": 3,
@@ -115,6 +115,72 @@
         "correo": "victorSanJuan@gmail.com",
         "telefono": "5548759641",
         "fechaN": "1989-11-18T16:45:00Z"
+    },
+    {
+        "id": 14,
+        "nombre": "Oscar",
+        "apellido":"Bautista Lopez",
+        "edad": 31,
+        "correo": "LBOscar@gmail.com",
+        "telefono": "8154741234",
+        "fechaN": "1994-12-11T12:30:00Z"
+    },
+    {
+        "id":15,
+        "nombre": "Carlos",
+        "apellido": "Bautista San Juan",
+        "edad": 30,
+        "correo": "carlosSJB@gmail.com",
+        "telefono": "8175964231",
+        "fechaN":"1995-05-11T13:25:00Z"
+
+    },
+    {
+        "id":16,
+        "nombre": "Rodolfo",
+        "apellido": "Cruz Rivera",
+        "edad": 41,
+        "correo": "rodolfocruz06@gmail.com",
+        "telefono": "7714568215",
+        "fechaN":"1984-06-15T18:45:00Z"
+    },
+    {
+        "id":17,
+        "nombre":"Jasmin",
+        "apellido":"Hernandez Hernandez",
+        "edad":18,
+        "correo": "alexahernandez@gmail.com",
+        "telefono": "8152647895",
+        "fechaN": "2006-11-11T16:24:00Z"
+    },
+    {
+        "id": 18,
+        "nombre":"Helena",
+        "apellido":"Oviedo Benigno",
+        "edad": 22,
+        "correo":"OvieHelenaB@gmail.com",
+        "telefono": "8154759632",
+        "fechaN":"2002-12-29T21:14:00Z"
+    },
+    {
+        "id":19,
+        "nombre":"Linda",
+        "apellido": "Cruz Martinez",
+        "edad":23,
+        "correo":"cruzlindaM@gmail.com",
+        "telefono": "8145957841",
+        "fechaN":"2001-10-24T20:58:00Z"
+    },
+    {
+        "id": 20,
+        "nombre":"Itezel",
+        "apellido": "Martinez Hernandez",
+        "edad": 21,
+        "correo": "itzelitaM@gmail.com",
+        "telefono": "8156784214",
+        "fechaN":"2003-06-14T08:00:00Z"
     }
+
+
 
 ]

@@ -2,7 +2,6 @@ var Module;
 (function (Module) {
     class Header {
         constructor(container_header) {
-            // new view.Registro(d3.select("#container_body")); 
             this.header(container_header);
         }
         header(container_header) {
@@ -23,8 +22,8 @@ var Module;
             container_header.select("div").append("button")
                 .text("Ver Personas")
                 .on("click", () => {
-                d3.select("#container_body").html("");
-                new view.VerPersonas(d3.select("#container_body"));
+                var vista = d3.select("#container_body").html("");
+                new view.VerPersonas(vista);
             });
             d3.selectAll("button")
                 .style("font-size", "24px")
