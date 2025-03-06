@@ -14,7 +14,7 @@ var view;
             return __awaiter(this, void 0, void 0, function* () {
                 try {
                     let data = yield d3.json("https://raw.githubusercontent.com/05JesusMoreno/json_document/refs/heads/main/src/view/personas.json");
-                    data.forEach(persona => {
+                    data.forEach((persona) => {
                         this.PersonasMap.set(persona.id, persona);
                     });
                     this.actualizarTabla();
@@ -27,8 +27,7 @@ var view;
         constructor(container) {
             this.PersonasMap = new Map();
             this.ventana = new view.Ventana();
-            //this.PersonasMap.set(1, <Persona>{ id: 1, nombre: "Jesus", apellido: "Bautista Moreno", edad: 22, correo: "jesusbautista25@gmail.com", telefono: 7713217322, fechaN: new Date()});
-            //this.PersonasMap.set(2, <Persona>{ id: 2, nombre: "Amanda", apellido: "Lopez Hernandez", edad: 28, correo: "AmanLH25@gmail.com", telefono: 7713457124, fechaN: new Date() });
+            this.ordenAscendenteNombre = true;
             this.mostrarLista(container);
         }
         mostrarLista(container) {
@@ -36,42 +35,31 @@ var view;
                 container.append("h2").text("Lista de Personas Registradas");
                 yield this.VerPersonasApi();
                 this.actualizarTabla();
-                var buttonContainer = container.append("div")
-                    .style("width", "80%")
-                    .style("display", "flex")
-                    .style("justify-content", "flex-end")
-                    .style("margin-bottom", "10px");
-                var busqueda = container.append("div")
+                var busqueda = container
+                    .append("div")
                     .style("width", "80%")
                     .style("display", "flex")
                     .style("justify-content", "flex-start")
                     .style("margin-bottom", "10px");
-                var inputBusqueda = busqueda.append("input")
+                this.inputbusqueda = busqueda
+                    .append("input")
                     .attr("type", "text")
                     .attr("placeholder", "Buscar Persona")
                     .style("padding", "8px 12px")
                     .style("border", "1px solid black")
                     .style("border-radius", "5px")
                     .style("font-size", "16px")
-                    .on("input", () => {
-                    var texto = inputBusqueda.property("value").toLowerCase();
-                    var personasFiltradas = Array.from(this.PersonasMap.values()).filter(persona => persona.nombre.toLowerCase().includes(texto) ||
-                        persona.apellido.toLowerCase().includes(texto));
-                    this.actualizarTabla(personasFiltradas);
+                    .on("keyup", () => {
+                    this.actualizarTabla();
                 });
-                var botonBusqueda = busqueda.append("button")
-                    .text("Buscar")
-                    .style("padding", "8px 12px")
-                    .style("background-color", "#007BFF")
-                    .style("color", "white")
-                    .style("border", "none")
-                    .style("cursor", "pointer")
-                    .style("border-radius", "5px")
-                    .style("font-size", "16px")
-                    .on("click", function () {
-                    var texto = inputBusqueda.property("value");
-                });
-                buttonContainer.append("button")
+                var buttonContainer = container
+                    .append("div")
+                    .style("width", "80%")
+                    .style("display", "flex")
+                    .style("justify-content", "flex-end")
+                    .style("margin-bottom", "10px");
+                buttonContainer
+                    .append("button")
                     .text("Agregar Persona")
                     .style("padding", "8px 12px")
                     .style("background-color", "#4CAF50")
@@ -85,25 +73,23 @@ var view;
                     this.formulario(container_reg);
                     this.ventana.mostrar();
                 });
-                const tabla = container.append("table")
+                const tabla = container
+                    .append("table")
                     .style("width", "80%")
                     .style("border-collapse", "collapse")
                     .style("border", "1px solid black");
-                let encabezadoTbl = tabla.append("thead").append("tr")
+                let encabezadoTbl = tabla
+                    .append("thead")
+                    .append("tr")
                     .style("border", "1px solid black")
                     .style("font-size", "19px");
                 encabezadoTbl.append("th").text("ID");
-                let ordenAscendenteNombre = true;
-                encabezadoTbl.append("th").text("Nombre")
+                encabezadoTbl
+                    .append("th")
+                    .text("Nombre")
                     .style("cursor", "pointer")
                     .on("click", () => {
-                    const personasOrdenadas = [...this.PersonasMap.values()]
-                        .sort((a, b) => ordenAscendenteNombre
-                        ? a.nombre.localeCompare(b.nombre)
-                        : b.nombre.localeCompare(a.nombre));
-                    this.PersonasMap = new Map(personasOrdenadas.map(p => [p.id, p]));
-                    ordenAscendenteNombre = !ordenAscendenteNombre;
-                    this.actualizarTabla(personasOrdenadas);
+                    this.actualizarTabla();
                 });
                 encabezadoTbl.append("th").text("Apellidos");
                 encabezadoTbl.append("th").text("Edad");
@@ -113,19 +99,24 @@ var view;
                 encabezadoTbl.append("th").text("Actualizar");
                 encabezadoTbl.append("th").text("Eliminar");
                 let tbody = tabla.append("tbody");
-                let filas = tbody.selectAll("tr")
+                let filas = tbody
+                    .selectAll("tr")
                     .data(Array.from(this.PersonasMap.values()))
                     .enter()
                     .append("tr")
-                    .datum(d => d);
-                filas.append("td").text(d => d.id.toString());
-                filas.append("td").text(d => d.nombre);
-                filas.append("td").text(d => d.apellido);
-                filas.append("td").text(d => d.edad.toString());
-                filas.append("td").text(d => d.correo);
-                filas.append("td").text(d => d.telefono);
-                filas.append("td").text(d => d.fechaN ? new Date(d.fechaN).toLocaleString().split("T")[0] : "");
-                filas.append("td").append("button")
+                    .datum((d) => d);
+                filas.append("td").text((d) => d.id.toString());
+                filas.append("td").text((d) => d.nombre);
+                filas.append("td").text((d) => d.apellido);
+                filas.append("td").text((d) => d.edad.toString());
+                filas.append("td").text((d) => d.correo);
+                filas.append("td").text((d) => d.telefono);
+                filas
+                    .append("td")
+                    .text((d) => d.fechaN ? new Date(d.fechaN).toLocaleString().split("T")[0] : "");
+                filas
+                    .append("td")
+                    .append("button")
                     .text("Editar")
                     .style("background-color", "#3A0AD5")
                     .style("font-size", "20px")
@@ -133,7 +124,9 @@ var view;
                     .on("click", (event, d) => {
                     this.ActualizarPersona(d.id);
                 });
-                filas.append("td").append("button")
+                filas
+                    .append("td")
+                    .append("button")
                     .text("Eliminar")
                     .style("background-color", "red")
                     .style("font-size", "20px")
@@ -151,23 +144,41 @@ var view;
                     .style("font-size", "22px");
             });
         }
-        actualizarTabla(personas) {
-            const tbody = d3.select("tbody");
-            tbody.selectAll("tr").remove();
-            let data = personas !== null && personas !== void 0 ? personas : Array.from(this.PersonasMap.values());
-            let filas = tbody.selectAll("tr")
-                .data(data)
+        actualizarTabla() {
+            var _a;
+            var tbody = d3.select("tbody");
+            let data = Array.from(this.PersonasMap.values());
+            var texto = (_a = this.inputbusqueda) === null || _a === void 0 ? void 0 : _a.property("value").toLowerCase();
+            if (texto != "") {
+                data = data.filter((persona) => persona.nombre.toLowerCase().includes(texto) ||
+                    persona.apellido.toLowerCase().includes(texto));
+                console.log(data);
+            }
+            data = data.sort((a, b) => this.ordenAscendenteNombre
+                ? a.nombre.localeCompare(b.nombre)
+                : b.nombre.localeCompare(a.nombre));
+            this.ordenAscendenteNombre = !this.ordenAscendenteNombre;
+            var DataActuzalizado = data;
+            var filasOld = tbody
+                .selectAll("tr")
+                .data(DataActuzalizado, (d) => d.id);
+            filasOld.exit().remove();
+            let filas = filasOld
                 .enter()
                 .append("tr")
-                .datum(d => d);
-            filas.append("td").text(d => d.id.toString());
-            filas.append("td").text(d => d.nombre);
-            filas.append("td").text(d => d.apellido);
-            filas.append("td").text(d => d.edad.toString());
-            filas.append("td").text(d => d.correo);
-            filas.append("td").text(d => d.telefono.toString());
-            filas.append("td").text(d => d.fechaN ? new Date(d.fechaN).toLocaleString().split("T")[0] : "");
-            filas.append("td").append("button")
+                .datum((d) => d);
+            filas.append("td").text((d) => d.id.toString());
+            filas.append("td").text((d) => d.nombre);
+            filas.append("td").text((d) => d.apellido);
+            filas.append("td").text((d) => d.edad.toString());
+            filas.append("td").text((d) => d.correo);
+            filas.append("td").text((d) => d.telefono.toString());
+            filas
+                .append("td")
+                .text((d) => d.fechaN ? new Date(d.fechaN).toLocaleString().split("T")[0] : "");
+            filas
+                .append("td")
+                .append("button")
                 .text("Editar")
                 .style("background-color", "#3A0AD5")
                 .style("font-size", "20px")
@@ -175,7 +186,9 @@ var view;
                 .on("click", (event, d) => {
                 this.ActualizarPersona(d.id);
             });
-            filas.append("td").append("button")
+            filas
+                .append("td")
+                .append("button")
                 .text("Eliminar")
                 .style("background-color", "Red")
                 .style("font-size", "20px")
@@ -193,32 +206,45 @@ var view;
                 .style("font-size", "22px");
         }
         formulario(container_form) {
-            container_form.selectAll("*").remove();
             container_form.append("h3").text("Registrar Persona");
             container_form.append("label").text("Nombre");
-            var inputNombre = container_form.append("input")
-                .attr("type", "text").attr("id", "nombre");
+            var inputNombre = container_form
+                .append("input")
+                .attr("type", "text")
+                .attr("id", "nombre");
             container_form.append("label").text("Apellidos");
-            var inputApellidos = container_form.append("input")
-                .attr("type", "text").attr("id", "apellidos");
+            var inputApellidos = container_form
+                .append("input")
+                .attr("type", "text")
+                .attr("id", "apellidos");
             container_form.append("label").text("Edad");
-            var inputEdad = container_form.append("input")
-                .attr("type", "number").attr("id", "edad");
+            var inputEdad = container_form
+                .append("input")
+                .attr("type", "number")
+                .attr("id", "edad");
             container_form.append("label").text("Correo");
-            var inputEmail = container_form.append("input")
-                .attr("type", "email").attr("id", "correo");
+            var inputEmail = container_form
+                .append("input")
+                .attr("type", "email")
+                .attr("id", "correo");
             container_form.append("label").text("Teléfono");
-            var inputTelefono = container_form.append("input")
-                .attr("type", "number").attr("id", "telefono");
+            var inputTelefono = container_form
+                .append("input")
+                .attr("type", "number")
+                .attr("id", "telefono");
             container_form.append("label").text("Fecha de nacimiento");
-            var inputFechaN = container_form.append("input")
-                .attr("type", "date").attr("id", "fecha");
-            var buttonContainer = container_form.append("div")
+            var inputFechaN = container_form
+                .append("input")
+                .attr("type", "date")
+                .attr("id", "fecha");
+            var buttonContainer = container_form
+                .append("div")
                 .style("display", "flex")
                 .style("justify-content", "center")
                 .style("gap", "10px")
                 .style("margin-top", "10px");
-            buttonContainer.append("button")
+            buttonContainer
+                .append("button")
                 .text("Registrar")
                 .style("display", "flex")
                 .style("background-color", "blue")
@@ -236,14 +262,24 @@ var view;
                 var telefono = inputTelefono.property("value");
                 var fechaN = new Date(inputFechaN.property("value"));
                 if (nombre && apellidos && edad > 0 && correo && telefono && fechaN) {
-                    var id = this.PersonasMap.size > 0 ? Math.max(...Array.from(this.PersonasMap.keys())) + 1 : 1;
+                    var id = this.PersonasMap.size > 0
+                        ? Math.max(...Array.from(this.PersonasMap.keys())) + 1
+                        : 1;
                     const confirmar = window.confirm("¿Estás seguro de que deseas registrar esta persona?");
                     if (!confirmar) {
                         this.ventana.ocultar();
                         alert("cancelaste registrar la nueva persona");
                         return;
                     }
-                    this.PersonasMap.set(id, { id, nombre, apellido: apellidos, edad, correo, telefono, fechaN });
+                    this.PersonasMap.set(id, {
+                        id,
+                        nombre,
+                        apellido: apellidos,
+                        edad,
+                        correo,
+                        telefono,
+                        fechaN,
+                    });
                     alert("Persona agregada correctamente");
                     this.actualizarTabla();
                     this.ventana.ocultar();
@@ -252,7 +288,8 @@ var view;
                     alert("Todos los campos son obligatorios y la edad debe ser válida.");
                 }
             });
-            buttonContainer.append("button")
+            buttonContainer
+                .append("button")
                 .text("Cancelar")
                 .style("background-color", "red")
                 .style("color", "white")
@@ -268,9 +305,7 @@ var view;
                 .style("width", "60%")
                 .style("font-size", "20px")
                 .style("padding", "10px");
-            d3.selectAll("label")
-                .style("font-size", "18px")
-                .style("padding", "8px");
+            d3.selectAll("label").style("font-size", "18px").style("padding", "8px");
         }
         ActualizarPersona(id) {
             let persona = this.PersonasMap.get(id);
@@ -279,7 +314,7 @@ var view;
                 return;
             }
             var container_reg = this.ventana.obtenerContenedor();
-            container_reg.selectAll("*").remove();
+            container_reg.exit().remove();
             container_reg.append("h3").text("Actualizar Persona");
             container_reg.attr("data-id", id.toString());
             d3.select("#nombre").property("value", persona.nombre);
@@ -289,36 +324,56 @@ var view;
             d3.select("#telefono").property("value", persona.telefono);
             d3.select("#fecha").property("value", persona.fechaN);
             container_reg.append("label").text("Nombre");
-            var inputNombre = container_reg.append("input")
-                .attr("type", "text").attr("id", "nombre").property("value", persona.nombre);
+            var inputNombre = container_reg
+                .append("input")
+                .attr("type", "text")
+                .attr("id", "nombre")
+                .property("value", persona.nombre);
             container_reg.append("label").text("Apellidos");
-            var inputApellidos = container_reg.append("input")
-                .attr("type", "text").attr("id", "apellidos").property("value", persona.apellido);
+            var inputApellidos = container_reg
+                .append("input")
+                .attr("type", "text")
+                .attr("id", "apellidos")
+                .property("value", persona.apellido);
             container_reg.append("label").text("Edad");
-            var inputEdad = container_reg.append("input")
-                .attr("type", "number").attr("id", "edad").property("value", persona.edad);
+            var inputEdad = container_reg
+                .append("input")
+                .attr("type", "number")
+                .attr("id", "edad")
+                .property("value", persona.edad);
             container_reg.append("label").text("Correo");
-            var inputEmail = container_reg.append("input")
-                .attr("type", "email").attr("id", "correo").property("value", persona.correo);
+            var inputEmail = container_reg
+                .append("input")
+                .attr("type", "email")
+                .attr("id", "correo")
+                .property("value", persona.correo);
             container_reg.append("label").text("Teléfono");
-            var inputTelefono = container_reg.append("input")
-                .attr("type", "number").attr("id", "telefono").property("value", persona.telefono);
+            var inputTelefono = container_reg
+                .append("input")
+                .attr("type", "number")
+                .attr("id", "telefono")
+                .property("value", persona.telefono);
             container_reg.append("label").text("Fecha de nacimiento");
-            var inputFechaN = container_reg.append("input")
-                .attr("type", "date").attr("id", "fecha").property("value", persona.fechaN ? new Date(persona.fechaN).toISOString().split("T")[0] : "");
+            var inputFechaN = container_reg
+                .append("input")
+                .attr("type", "date")
+                .attr("id", "fecha")
+                .property("value", persona.fechaN
+                ? new Date(persona.fechaN).toISOString().split("T")[0]
+                : "");
             d3.selectAll("input")
                 .style("width", "60%")
                 .style("font-size", "20px")
                 .style("padding", "10px");
-            d3.selectAll("label")
-                .style("font-size", "18px")
-                .style("padding", "8px");
-            var buttonContainer = container_reg.append("div")
+            d3.selectAll("label").style("font-size", "18px").style("padding", "8px");
+            var buttonContainer = container_reg
+                .append("div")
                 .style("display", "flex")
                 .style("justify-content", "center")
                 .style("gap", "10px")
                 .style("margin-top", "10px");
-            buttonContainer.append("button")
+            buttonContainer
+                .append("button")
                 .text("Actualizar")
                 .style("background-color", "blue")
                 .style("color", "white")
@@ -334,7 +389,12 @@ var view;
                 var nuevoCorreo = d3.select("#correo").property("value");
                 var nuevoTelefono = d3.select("#telefono").property("value");
                 var nuevaFechaN = new Date(d3.select("#fecha").property("value"));
-                if (!nuevoNombre || !nuevoApellido || isNaN(nuevaEdad) || !nuevoCorreo || !nuevoTelefono || isNaN(nuevaFechaN.getTime())) {
+                if (!nuevoNombre ||
+                    !nuevoApellido ||
+                    isNaN(nuevaEdad) ||
+                    !nuevoCorreo ||
+                    !nuevoTelefono ||
+                    isNaN(nuevaFechaN.getTime())) {
                     alert("Todos los campos son obligatorios y deben ser válidos.");
                     return;
                 }
@@ -344,12 +404,21 @@ var view;
                     alert("cancelaste actualizar los datos");
                     return;
                 }
-                this.PersonasMap.set(id, { id, nombre: nuevoNombre, apellido: nuevoApellido, edad: nuevaEdad, correo: nuevoCorreo, telefono: nuevoTelefono, fechaN: nuevaFechaN });
+                this.PersonasMap.set(id, {
+                    id,
+                    nombre: nuevoNombre,
+                    apellido: nuevoApellido,
+                    edad: nuevaEdad,
+                    correo: nuevoCorreo,
+                    telefono: nuevoTelefono,
+                    fechaN: nuevaFechaN,
+                });
                 alert("Persona actualizada correctamente");
                 this.actualizarTabla();
                 this.ventana.ocultar();
             });
-            buttonContainer.append("button")
+            buttonContainer
+                .append("button")
                 .text("Cancelar")
                 .style("background-color", "red")
                 .style("color", "white")
